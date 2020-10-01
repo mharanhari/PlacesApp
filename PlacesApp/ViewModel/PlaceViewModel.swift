@@ -26,6 +26,7 @@ struct PlaceViewModel {
             do {
                 let data = try result.get()
                 // Update the dataSource
+                //The received JSONString is not in utf8 format, so cnovert it to utf8 type before passing to Json decoder.
                 let isoString = String(data: data, encoding: .isoLatin1)
                 if let utf8Data = isoString?.data(using: .utf8), let response = self.parseJson(data: utf8Data) {
                     self.dataSource?.data.value = response.rows.filter({$0.title != nil})
